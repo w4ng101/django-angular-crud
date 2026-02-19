@@ -1,0 +1,42 @@
+<div style="max-width: 600px; margin: 40px auto; padding: 0 20px;">
+  <h1>{{ isEditMode ? 'Edit Item' : 'New Item' }}</h1>
+  <form (ngSubmit)="save()" #itemForm="ngForm">
+    <div style="margin-bottom: 16px;">
+      <label style="display: block; margin-bottom: 4px; font-weight: bold;">Name *</label>
+      <input
+        type="text"
+        [(ngModel)]="item.name"
+        name="name"
+        required
+        style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;"
+        placeholder="Item name"
+      />
+    </div>
+    <div style="margin-bottom: 16px;">
+      <label style="display: block; margin-bottom: 4px; font-weight: bold;">Description</label>
+      <textarea
+        [(ngModel)]="item.description"
+        name="description"
+        rows="4"
+        style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;"
+        placeholder="Item description"
+      ></textarea>
+    </div>
+    <div style="display: flex; gap: 12px;">
+      <button
+        type="submit"
+        [disabled]="!itemForm.valid"
+        style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;"
+      >
+        {{ isEditMode ? 'Update' : 'Create' }}
+      </button>
+      <button
+        type="button"
+        (click)="cancel()"
+        style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
