@@ -1,0 +1,22 @@
+# Docker Compose Development Configuration
+# This extends the base docker-compose.yml with development-specific settings
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  backend:
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    environment:
+      - DEBUG=True
+
+  frontend:
+    build:
+      context: ./frontend
+      target: build
+    command: npm start
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "4200:4200"

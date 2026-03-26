@@ -1,0 +1,90 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="form-container">
+    <h2>{{ isEditMode ? 'Edit Task' : 'Create New Task' }}</h2>
+
+    <div *ngIf="errorMessage" class="alert alert-error mb-3">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="loading && isEditMode" class="flex-center">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" *ngIf="!loading || !isEditMode">
+      <div class="form-group">
+        <label for="title">Title *</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          placeholder="Enter task title"
+        />
+        <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched" class="error-message">
+          Title is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Enter task description (optional)"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="status">Status *</label>
+          <select id="status" formControlName="status">
+            <option *ngFor="let option of statusOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="priority">Priority *</label>
+          <select id="priority" formControlName="priority">
+            <option *ngFor="let option of priorityOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="due_date">Due Date</label>
+          <input
+            type="date"
+            id="due_date"
+            formControlName="due_date"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              formControlName="completed"
+            />
+            Mark as completed
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="loading || taskForm.invalid">
+          {{ loading ? 'Saving...' : (isEditMode ? 'Update Task' : 'Create Task') }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="form-container">
+    <h2>My Profile</h2>
+
+    <div *ngIf="errorMessage" class="alert alert-error mb-3">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          readonly
+          class="readonly-field"
+        />
+        <small class="help-text">Username cannot be changed</small>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter email"
+        />
+        <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="error-message">
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input
+          type="text"
+          id="first_name"
+          formControlName="first_name"
+          placeholder="Enter first name"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input
+          type="text"
+          id="last_name"
+          formControlName="last_name"
+          placeholder="Enter last name"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="loading || profileForm.invalid" style="width: 100%;">
+        {{ loading ? 'Updating...' : 'Update Profile' }}
+      </button>
+    </form>
+
+    <div class="profile-info mt-4">
+      <h3>Account Information</h3>
+      <p><strong>User ID:</strong> {{ currentUser?.id }}</p>
+      <p><strong>Username:</strong> {{ currentUser?.username }}</p>
+      <p *ngIf="currentUser && currentUser.profile">
+        <strong>Role:</strong> 
+        <span class="role-badge" 
+              [class.super-admin]="currentUser.profile && currentUser.profile.role === 1" 
+              [class.admin]="currentUser.profile && currentUser.profile.role === 2"
+              [class.user]="currentUser.profile && currentUser.profile.role === 3">
+          {{ currentUser.profile.role_display }}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>

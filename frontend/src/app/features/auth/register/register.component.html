@@ -1,0 +1,249 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <rect width="48" height="48" rx="12" fill="url(#icon-gradient)"/>
+          <path d="M18 18h12M18 24h12M18 30h8" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="icon-gradient" x1="0" y1="0" x2="48" y2="48">
+              <stop offset="0%" stop-color="#667eea"/>
+              <stop offset="100%" stop-color="#764ba2"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <h2>Create Account</h2>
+      <p>Join TaskFlow to manage your tasks</p>
+    </div>
+  
+    <div *ngIf="errorMessage" class="alert alert-error">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="username">Username *</label>
+          <input
+            type="text"
+            id="username"
+            formControlName="username"
+            placeholder="Choose a username"
+            [class.error]="username?.invalid && username?.touched"
+          />
+          <div *ngIf="username?.invalid && username?.touched" class="error-message">
+            <span *ngIf="username?.errors?.['required']">Username is required</span>
+            <span *ngIf="username?.errors?.['minlength']">Min 3 characters</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="your@email.com"
+            [class.error]="email?.invalid && email?.touched"
+          />
+          <div *ngIf="email?.invalid && email?.touched" class="error-message">
+            <span *ngIf="email?.errors?.['required']">Email is required</span>
+            <span *ngIf="email?.errors?.['email']">Invalid email</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first_name">First Name</label>
+          <input
+            type="text"
+            id="first_name"
+            formControlName="first_name"
+            placeholder="First name (optional)"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="last_name">Last Name</label>
+          <input
+            type="text"
+            id="last_name"
+            formControlName="last_name"
+            placeholder="Last name (optional)"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Create a password"
+          [class.error]="password?.invalid && password?.touched"
+        />
+        <div *ngIf="password?.invalid && password?.touched" class="error-message">
+          <span *ngIf="password?.errors?.['required']">Password is required</span>
+          <span *ngIf="password?.errors?.['minlength']">Min 6 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password2">Confirm Password *</label>
+        <input
+          type="password"
+          id="password2"
+          formControlName="password2"
+          placeholder="Confirm your password"
+          [class.error]="(password2?.invalid || registerForm.errors?.['mismatch']) && password2?.touched"
+        />
+        <div *ngIf="password2?.touched" class="error-message">
+          <span *ngIf="password2?.errors?.['required']">Confirm password</span>
+          <span *ngIf="registerForm.errors?.['mismatch'] && !password2?.errors?.['required']">
+            Passwords don't match
+          </span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg" [disabled]="loading || registerForm.invalid">
+        <span *ngIf="!loading">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+          </svg>
+          Create Account
+        </span>
+        <span *ngIf="loading" class="loading-text">
+          <div class="loading-spinner"></div>
+          Creating account...
+        </span>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an account? <a routerLink="/login" class="auth-link">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 540px;
+    background: white;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    padding: 2.5rem;
+    animation: slideUp 0.4s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .auth-icon {
+    display: inline-flex;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .auth-header h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .auth-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .auth-card {
+      padding: 2rem 1.5rem;
+    }
+
+    .auth-header h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .loading-text {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .loading-spinner {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+  }
+
+  .auth-footer {
+    margin-top: 2rem;
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .auth-footer p {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+  }
+
+  .auth-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+
+  .auth-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+  }
+</style>

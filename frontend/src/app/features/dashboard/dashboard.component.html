@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="dashboard-header">
+    <h2>Welcome, {{ currentUser?.username || 'User' }}!</h2>
+    <p class="subtitle">Here's an overview of your tasks</p>
+  </div>
+
+  <div *ngIf="loading" class="flex-center">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <div *ngIf="!loading && statistics" class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon total">📊</div>
+      <div class="stat-info">
+        <h3>{{ statistics.total }}</h3>
+        <p>Total Tasks</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon todo">📝</div>
+      <div class="stat-info">
+        <h3>{{ statistics.todo }}</h3>
+        <p>To Do</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon progress">🚀</div>
+      <div class="stat-info">
+        <h3>{{ statistics.in_progress }}</h3>
+        <p>In Progress</p>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon done">✅</div>
+      <div class="stat-info">
+        <h3>{{ statistics.done }}</h3>
+        <p>Completed</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions mt-4">
+    <a routerLink="/tasks/create" class="btn btn-primary">Create New Task</a>
+    <a routerLink="/tasks" class="btn btn-secondary">View All Tasks</a>
+  </div>
+</div>
