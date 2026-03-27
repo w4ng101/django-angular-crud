@@ -41,4 +41,20 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  get timeGreeting(): string {
+    const h = new Date().getHours();
+    if (h < 12) return 'morning';
+    if (h < 17) return 'afternoon';
+    return 'evening';
+  }
+
+  getCompletionPercent(): number {
+    if (!this.statistics || this.statistics.total === 0) return 0;
+    return Math.round((this.statistics.done / this.statistics.total) * 100);
+  }
+
+  getProgressOffset(): number {
+    return 314 - (this.getCompletionPercent() / 100) * 314;
+  }
 }

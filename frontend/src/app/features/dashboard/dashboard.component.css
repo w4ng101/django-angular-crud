@@ -1,252 +1,460 @@
-.dashboard-header {
-  text-align: center;
-  margin: 2rem 0 3rem;
-  animation: fadeIn 0.6s ease-out;
+/* ── Page wrapper ── */
+.dashboard-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 5rem;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ── Ambient orbs ── */
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat 10s ease-in-out infinite;
 }
 
-.dashboard-header h2 {
-  font-size: 2.5rem;
+.orb-1 {
+  width: 560px;
+  height: 560px;
+  background: rgba(102, 126, 234, 0.13);
+  top: -220px;
+  right: -120px;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 420px;
+  height: 420px;
+  background: rgba(240, 147, 251, 0.1);
+  bottom: -80px;
+  left: -80px;
+  animation-delay: 3.5s;
+}
+
+.orb-3 {
+  width: 280px;
+  height: 280px;
+  background: rgba(74, 222, 128, 0.09);
+  top: 45%;
+  left: 45%;
+  animation-delay: 7s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(18px, -18px) scale(1.06); }
+  66%       { transform: translate(-14px, 14px) scale(0.94); }
+}
+
+/* Make container sit above orbs */
+.dashboard-page > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Hero ── */
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 0 2.5rem;
+  gap: 2rem;
+  animation: fadeUp 0.6s ease-out;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.22);
+  border-radius: var(--radius-full);
+  padding: 0.375rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success-color);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25);
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25); }
+  50%       { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0.08); }
+}
+
+.hero-title {
+  font-size: 3.25rem;
+  font-weight: 900;
+  line-height: 1.08;
+  color: var(--text-primary);
+  letter-spacing: -0.04em;
+  margin-bottom: 0.875rem;
+}
+
+.hero-name {
   background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
 }
 
-.subtitle {
+.hero-subtitle {
   color: var(--text-secondary);
   font-size: 1.125rem;
   font-weight: 500;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0 3rem;
+/* ── Progress ring ── */
+.hero-visual {
+  flex-shrink: 0;
 }
 
-@media (max-width: 640px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
+.progress-ring-container {
+  position: relative;
+  width: 148px;
+  height: 148px;
+  animation: popIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
 }
 
-.stat-card {
-  background: var(--surface);
-  border-radius: var(--radius-xl);
-  padding: 2rem;
-  box-shadow: var(--shadow-md);
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.progress-ring {
+  width: 148px;
+  height: 148px;
+  transform: rotate(-90deg);
+}
+
+.ring-track {
+  fill: none;
+  stroke: var(--border-color);
+  stroke-width: 9;
+}
+
+.ring-fill {
+  fill: none;
+  stroke: url(#ringGradient);
+  stroke-width: 9;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ring-label {
+  position: absolute;
+  inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
-  transition: all var(--transition-base);
+  justify-content: center;
+  gap: 2px;
+}
+
+.ring-percent {
+  font-size: 1.875rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.ring-text {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* ── Bento Grid ── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.125rem;
+  animation: fadeUp 0.5s ease-out 0.15s backwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Base card ── */
+.bento-card {
+  border-radius: var(--radius-xl);
+  padding: 1.875rem;
   border: 1px solid var(--border-color);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
   position: relative;
   overflow: hidden;
-  animation: slideIn 0.5s ease-out backwards;
 }
 
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100px;
-  height: 100px;
-  background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
-  transform: translate(30%, -30%);
-}
-
-.stat-card:nth-child(1) { animation-delay: 0.1s; }
-.stat-card:nth-child(2) { animation-delay: 0.2s; }
-.stat-card:nth-child(3) { animation-delay: 0.3s; }
-.stat-card:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.stat-card:hover {
-  transform: translateY(-8px) scale(1.02);
+.bento-card:hover {
+  transform: translateY(-5px);
   box-shadow: var(--shadow-xl);
   border-color: transparent;
 }
 
-.stat-icon {
-  font-size: 3rem;
-  width: 80px;
-  height: 80px;
+/* ── Card: Total (spans 2 cols) ── */
+.bento-total {
+  grid-column: span 2;
+  background: var(--primary-gradient);
+  border-color: transparent;
+  color: white;
+}
+
+.bento-total .bento-icon  { background: rgba(255,255,255,0.18); }
+.bento-total .bento-icon svg { stroke: rgba(255,255,255,0.95); }
+.bento-total .bento-number { color: white; }
+.bento-total .bento-label  { color: rgba(255,255,255,0.8); }
+.bento-total .bento-desc   { color: rgba(255,255,255,0.6); font-size: 0.875rem; margin-top: 0.25rem; }
+
+/* Shine overlay on total card */
+.card-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ── Card: To Do ── */
+.bento-todo {
+  background: linear-gradient(135deg, #fff0f9 0%, #fce7f3 100%);
+  border-color: #fbcfe8;
+}
+.bento-todo .bento-icon { background: rgba(240,147,251,0.18); }
+.bento-todo .bento-icon svg { stroke: #d946ef; }
+.bento-todo .bento-number { color: #be185d; }
+.bento-todo .bento-label  { color: #9d174d; }
+
+/* ── Card: In Progress ── */
+.bento-in-progress {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border-color: #fde68a;
+}
+.bento-in-progress .bento-icon { background: rgba(251,191,36,0.18); }
+.bento-in-progress .bento-icon svg { stroke: #d97706; }
+.bento-in-progress .bento-number { color: #b45309; }
+.bento-in-progress .bento-label  { color: #92400e; }
+
+/* ── Card: Done (spans 2 cols) ── */
+.bento-done {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-color: #bbf7d0;
+}
+.bento-done .bento-icon { background: rgba(74,222,128,0.18); }
+.bento-done .bento-icon svg { stroke: #16a34a; }
+.bento-done .bento-number { color: #166534; }
+.bento-done .bento-label  { color: #15803d; }
+
+/* Progress bar inside Done card */
+.done-bar {
+  margin-top: 1.125rem;
+  height: 5px;
+  background: rgba(34,197,94,0.18);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.done-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4ade80, #22c55e);
+  border-radius: var(--radius-full);
+  transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.done-bar-label {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #15803d;
+  letter-spacing: 0.02em;
+}
+
+/* ── Card: Quick Actions (full width) ── */
+.bento-actions {
+  grid-column: span 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.625rem 2rem;
+  background: var(--surface);
+}
+
+.actions-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+}
+
+.actions-hint {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.875rem;
+  flex-shrink: 0;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.action-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.action-primary {
+  background: var(--primary-gradient);
+  color: white;
+  box-shadow: var(--shadow-colored);
+}
+
+.action-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl), var(--shadow-colored);
+}
+
+.action-secondary {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+}
+
+.action-secondary:hover {
+  background: var(--border-color);
+  transform: translateY(-2px);
+}
+
+/* ── Bento shared elements ── */
+.bento-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-lg);
-  flex-shrink: 0;
-  position: relative;
-  z-index: 1;
+  margin-bottom: 1.375rem;
 }
 
-.stat-icon.total {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  box-shadow: 0 10px 40px -10px rgba(102, 126, 234, 0.5);
+.bento-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
-.stat-icon.todo {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
-  box-shadow: 0 10px 40px -10px rgba(240, 147, 251, 0.5);
-}
-
-.stat-icon.progress {
-  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-  color: #fff;
-  box-shadow: 0 10px 40px -10px rgba(252, 182, 159, 0.5);
-}
-
-.stat-icon.done {
-  background: var(--success-gradient);
-  color: white;
-  box-shadow: 0 10px 40px -10px rgba(74, 222, 128, 0.5);
-}
-
-.stat-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.stat-info h3 {
-  font-size: 2.75rem;
-  margin: 0 0 0.25rem 0;
+.bento-number {
+  font-size: 3.75rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin-bottom: 0.375rem;
   background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 800;
-  line-height: 1;
 }
 
-.stat-info p {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 1rem;
-  font-weight: 600;
+/* Override gradient text for colored cards */
+.bento-total .bento-number,
+.bento-todo .bento-number,
+.bento-in-progress .bento-number,
+.bento-done .bento-number {
+  -webkit-text-fill-color: unset;
+  background: none;
+}
+
+.bento-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
-.actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-}
-
-.actions .btn {
-  text-decoration: none;
-  min-width: 200px;
-}
-
-@media (max-width: 640px) {
-  .dashboard-header h2 {
-    font-size: 2rem;
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .subtitle {
-    font-size: 1rem;
+  .bento-total   { grid-column: span 2; }
+  .bento-done    { grid-column: span 2; }
+  .bento-actions { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 2rem 0 1.75rem;
+    gap: 1.5rem;
   }
 
-  .stat-card {
-    padding: 1.5rem;
+  .hero-badge { margin: 0 auto 1rem; }
+
+  .hero-title { font-size: 2.5rem; }
+
+  .bento-grid { gap: 0.875rem; }
+
+  .bento-actions {
     flex-direction: column;
+    align-items: stretch;
     text-align: center;
   }
 
-  .stat-icon {
-    width: 72px;
-    height: 72px;
-    font-size: 2.5rem;
-  }
-
-  .stat-info h3 {
-    font-size: 2.25rem;
-  }
-
-  .stat-info p {
-    font-size: 0.9375rem;
-  }
-
-  .actions {
+  .action-buttons {
     flex-direction: column;
-    align-items: stretch;
   }
 
-  .actions .btn {
-    width: 100%;
-  }
+  .action-btn { justify-content: center; }
 }
 
-/* Empty State */
-.empty-state {
-  text-align: center;
-  padding: 4rem 2rem;
-  background: var(--surface);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-md);
-  margin: 2rem 0;
-}
-
-.empty-state svg {
-  width: 120px;
-  height: 120px;
-  margin-bottom: 1.5rem;
-  opacity: 0.5;
-}
-
-.empty-state h3 {
-  font-size: 1.5rem;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-.empty-state p {
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-}
-
-@media (max-width: 640px) {
-  .empty-state {
-    padding: 3rem 1.5rem;
+@media (max-width: 480px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
   }
 
-  .empty-state svg {
-    width: 80px;
-    height: 80px;
+  .bento-total,
+  .bento-done,
+  .bento-actions {
+    grid-column: span 1;
   }
 
-  .empty-state h3 {
-    font-size: 1.25rem;
-  }
+  .hero-title { font-size: 2rem; }
+
+  .bento-number { font-size: 3rem; }
 }

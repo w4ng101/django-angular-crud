@@ -14,9 +14,7 @@ services:
     build:
       context: ./frontend
       target: build
-    command: npm start
+    command: sh -c "npm start -- --host 0.0.0.0 --port 80"
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    ports:
-      - "4200:4200"

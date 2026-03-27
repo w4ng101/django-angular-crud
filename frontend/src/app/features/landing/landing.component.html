@@ -1,0 +1,209 @@
+<div class="landing-page">
+
+  <!-- Ambient orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- ── Navbar ── -->
+  <header class="lp-nav">
+    <div class="lp-nav-inner">
+      <a routerLink="/" class="lp-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <span>TaskFlow</span>
+      </a>
+      <div class="lp-nav-actions">
+        <a routerLink="/login" class="nav-link">Sign in</a>
+        <a routerLink="/register" class="nav-cta">Get started free</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-pill">
+        <span class="pill-dot"></span>
+        Trusted by productive teams
+      </div>
+
+      <h1 class="hero-heading">
+        The smartest way to<br>
+        <span class="gradient-text">manage your tasks</span>
+      </h1>
+
+      <p class="hero-sub">
+        TaskFlow helps you stay organized, move fast, and get things done —<br class="hero-br">
+        all in one beautifully simple workspace.
+      </p>
+
+      <div class="hero-actions">
+        <a routerLink="/register" class="btn-hero-primary">
+          Start for free
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a routerLink="/login" class="btn-hero-ghost">Sign in</a>
+      </div>
+
+      <p class="hero-note">No credit card required &nbsp;·&nbsp; Free forever</p>
+    </div>
+
+    <!-- Floating card preview -->
+    <div class="hero-visual">
+      <div class="preview-card">
+        <div class="preview-header">
+          <div class="preview-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="preview-title">My Tasks</span>
+        </div>
+        <div class="preview-body">
+          <div class="preview-stat-row">
+            <div class="preview-stat ps-purple">
+              <span class="ps-num">12</span>
+              <span class="ps-lbl">Total</span>
+            </div>
+            <div class="preview-stat ps-pink">
+              <span class="ps-num">4</span>
+              <span class="ps-lbl">To Do</span>
+            </div>
+            <div class="preview-stat ps-amber">
+              <span class="ps-num">5</span>
+              <span class="ps-lbl">Active</span>
+            </div>
+            <div class="preview-stat ps-green">
+              <span class="ps-num">3</span>
+              <span class="ps-lbl">Done</span>
+            </div>
+          </div>
+          <div class="preview-tasks">
+            <div class="preview-task done-task">
+              <div class="task-check checked"></div>
+              <span>Design landing page</span>
+              <span class="task-badge badge-done">Done</span>
+            </div>
+            <div class="preview-task">
+              <div class="task-check active-check"></div>
+              <span>Build API endpoints</span>
+              <span class="task-badge badge-active">Active</span>
+            </div>
+            <div class="preview-task">
+              <div class="task-check"></div>
+              <span>Write unit tests</span>
+              <span class="task-badge badge-todo">To Do</span>
+            </div>
+            <div class="preview-task">
+              <div class="task-check"></div>
+              <span>Deploy to production</span>
+              <span class="task-badge badge-todo">To Do</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Floating badges -->
+      <div class="float-badge fb-top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Task completed!
+      </div>
+      <div class="float-badge fb-bottom">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        3 tasks in progress
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Features ── -->
+  <section class="features">
+    <div class="features-inner">
+      <p class="section-eyebrow">Why TaskFlow</p>
+      <h2 class="section-heading">Everything you need,<br>nothing you don't</h2>
+
+      <div class="features-grid">
+
+        <div class="feature-card fc-purple">
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3>Task Management</h3>
+          <p>Create, assign, and track tasks with priorities and due dates — all in a clean, focused interface.</p>
+        </div>
+
+        <div class="feature-card fc-pink">
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <h3>Real-time Progress</h3>
+          <p>Visual dashboards and progress rings give you an instant snapshot of where your work stands.</p>
+        </div>
+
+        <div class="feature-card fc-green">
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+          </div>
+          <h3>Personal Workspace</h3>
+          <p>Your account, your rules. Secure JWT authentication keeps your data private and accessible only to you.</p>
+        </div>
+
+        <div class="feature-card fc-amber">
+          <div class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4l3 3"/>
+            </svg>
+          </div>
+          <h3>Status Workflows</h3>
+          <p>Move tasks from To Do → In Progress → Done with a single click. Simple status tracking that just works.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2 class="cta-heading">Start getting things done today</h2>
+      <p class="cta-sub">Join TaskFlow and take back control of your day.</p>
+      <a routerLink="/register" class="btn-hero-primary">
+        Create free account
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="lp-footer">
+    <div class="lp-footer-inner">
+      <div class="lp-logo footer-logo">
+        <div class="logo-icon logo-icon-sm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <span>TaskFlow</span>
+      </div>
+      <p class="footer-copy">&copy; 2026 TaskFlow. Built with Angular &amp; Django.</p>
+      <div class="footer-links">
+        <a routerLink="/login">Sign in</a>
+        <a routerLink="/register">Register</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
